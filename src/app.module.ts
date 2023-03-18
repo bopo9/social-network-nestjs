@@ -9,6 +9,8 @@ import { Post } from './api/post/post.model';
 import { S3Service } from './services/s3/s3.service';
 import { S3Module } from './services/s3/s3.module';
 import { UserService } from './api/user/user.service';
+import { GameModule } from './api/game/game.module';
+import { Game } from './api/game/game.model';
 
 @Module({
   imports: [
@@ -30,13 +32,14 @@ import { UserService } from './api/user/user.service';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [UserModel, Post],
+        entities: [UserModel, Post, Game],
         synchronize: true,
         autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),
     S3Module,
+    GameModule,
   ],
   providers: [S3Service],
 })

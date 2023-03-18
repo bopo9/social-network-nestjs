@@ -1,6 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinTable,
+  ManyToOne, ManyToMany,
+} from 'typeorm';
 import { Post } from '../post/post.model';
 import { Exclude } from 'class-transformer';
+import { Game } from '../game/game.model';
 
 @Entity('users')
 export class UserModel {
@@ -35,4 +43,8 @@ export class UserModel {
   @OneToMany(() => Post, (post: Post) => post.author)
   @JoinTable()
   public posts: Post[];
+
+  @ManyToMany(() => Game, (game: Game) => game.user)
+  @JoinTable()
+  public games?: Game[];
 }
